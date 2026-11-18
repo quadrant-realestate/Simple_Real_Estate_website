@@ -357,19 +357,37 @@ export function LeadForm() {
   const [note, setNote] = useState("No spam. No pressure. Just the math.");
   const [ok, setOk] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [sending, setSending] = useState(false);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const f = new FormData(form);
     const name = String(f.get("name") || "there").trim();
     const phone = String(f.get("phone") || "").trim();
     const msg = String(f.get("message") || "").trim();
     const text = `Hi ${site.name}! I'm ${name}. ${
       msg ? "I'm looking at: " + msg + ". " : ""
     }My number: ${phone}`;
-    setNote(`Thanks ${name}! Opening WhatsApp to send your request…`);
+
+    setSending(true);
+    // Capture the lead server-side first, so it is never lost even if the
+    // visitor doesn't complete the WhatsApp hand-off.
+    try {
+      await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, message: msg, source: "lead_form" }),
+      });
+    } catch {
+      // Ignore network errors — the WhatsApp hand-off below is the backup.
+    }
+    setSending(false);
+
+    setNote(`Thanks ${name}! We've got your details — opening WhatsApp so you can chat with us too.`);
     setOk(true);
     window.open(waLink(text), "_blank");
-    e.currentTarget.reset();
+    form.reset();
   }
 
   return (
@@ -390,8 +408,8 @@ export function LeadForm() {
           placeholder="A project name, a link, or your budget and goal"
         />
       </label>
-      <button type="submit" className="btn btn-yellow full">
-        Get my free breakdown →
+      <button type="submit" className="btn btn-yellow full" disabled={sending}>
+        {sending ? "Sending…" : "Get my free breakdown →"}
       </button>
       <p className={`form-note${ok ? " ok" : ""}`}>{note}</p>
     </form>
