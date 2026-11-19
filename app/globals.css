@@ -358,7 +358,7 @@ input[type=checkbox]{width:24px;height:24px;accent-color:var(--blue);cursor:poin
   .hero-grid,.visa-grid,.cta-card{grid-template-columns:1fr}
   .calc-card{grid-template-columns:1fr}
   .calc-controls{border-right:none;border-bottom:1px solid var(--line)}
-  .hero-art{order:-1;max-width:480px}
+  .hero-art{order:1;max-width:480px;margin-inline:auto}
   .steps,.story-grid{grid-template-columns:1fr 1fr}
   .cta-copy{padding:40px}
 }

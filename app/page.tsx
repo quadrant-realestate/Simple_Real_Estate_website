@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import ScrollReveal from "@/components/ScrollReveal";
 import HeroDots from "@/components/HeroDots";
+import HeroKey from "@/components/HeroKey";
 import {
   CostCalculator,
   PaymentPlan,
@@ -64,50 +65,7 @@ export default function Home() {
               <div><strong>AED 2M</strong><span>Golden Visa door</span></div>
             </div>
           </div>
-          <div className="hero-art">
-            <svg
-              viewBox="0 0 360 340"
-              className="hero-figure"
-              role="img"
-              aria-label="A gold key with a house in its head"
-            >
-              <defs>
-                <filter id="panelShadow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="14" stdDeviation="20" floodColor="#1D3453" floodOpacity="0.22" />
-                </filter>
-                <clipPath id="panelClip">
-                  <rect x="14" y="26" width="332" height="288" rx="30" />
-                </clipPath>
-              </defs>
-
-              <rect x="14" y="26" width="332" height="288" rx="30" fill="#1D3453" filter="url(#panelShadow)" />
-
-              <g clipPath="url(#panelClip)">
-                {/* soft glow */}
-                <circle cx="180" cy="168" r="122" fill="#C6A75A" opacity="0.07" />
-
-                <g transform="rotate(-20 180 180)">
-                  {/* bow with house */}
-                  <circle cx="180" cy="116" r="44" fill="none" stroke="#C6A75A" strokeWidth="8" />
-                  <circle cx="180" cy="116" r="44" fill="none" stroke="#EADFBF" strokeWidth="1" opacity="0.35" />
-                  <path d="M162 118 L180 98 L198 118 Z" fill="#C6A75A" />
-                  <rect x="167" y="118" width="26" height="24" fill="#C6A75A" />
-                  <rect x="176" y="126" width="8" height="11" fill="#1D3453" />
-                  {/* shaft */}
-                  <rect x="174" y="158" width="12" height="108" rx="3" fill="#C6A75A" />
-                  {/* teeth */}
-                  <rect x="186" y="232" width="16" height="11" rx="2" fill="#C6A75A" />
-                  <rect x="186" y="250" width="26" height="11" rx="2" fill="#C6A75A" />
-                </g>
-              </g>
-
-              {/* inner gold frame */}
-              <rect x="28" y="40" width="304" height="260" rx="20" fill="none" stroke="#C6A75A" strokeWidth="1" opacity="0.3" />
-
-              {/* label */}
-              <text x="180" y="293" textAnchor="middle" fontFamily="Archivo, sans-serif" fontSize="11" letterSpacing="4" fontWeight="600" fill="#EADFBF" opacity="0.8">YOUR&#160;KEY&#160;TO&#160;DUBAI</text>
-            </svg>
-          </div>
+          <HeroKey />
         </div>
       </section>
 
