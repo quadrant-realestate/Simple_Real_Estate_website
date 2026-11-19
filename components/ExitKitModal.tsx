@@ -50,9 +50,13 @@ export default function ExitKitModal() {
       document.addEventListener("mouseout", onExit);
       onScroll(); // in case the reader is already scrolled down
     }, 2000);
+    // fallback: on mobile there's no mouse (no exit-intent) and the reader
+    // may not scroll far — open anyway after a while so it always shows
+    const t2 = window.setTimeout(fire, 15000);
 
     function cleanup() {
       window.clearTimeout(t);
+      window.clearTimeout(t2);
       window.removeEventListener("scroll", onScroll);
       document.removeEventListener("mouseout", onExit);
     }

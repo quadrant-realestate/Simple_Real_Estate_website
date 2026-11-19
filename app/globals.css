@@ -283,8 +283,11 @@ input[type=checkbox]{width:24px;height:24px;accent-color:var(--blue);cursor:poin
 .cta-copy h2{margin-bottom:18px}
 .cta-copy p{color:rgba(255,255,255,.8);margin-bottom:28px;line-height:1.7}
 .contact-direct{display:flex;flex-direction:column;gap:12px}
-.contact-direct a{font-weight:500;color:var(--gold-soft);transition:color .2s ease}
+.contact-direct a{display:flex;align-items:center;gap:11px;font-weight:500;color:var(--gold-soft);transition:color .2s ease}
 .contact-direct a:hover{color:#fff}
+.contact-ic{flex:0 0 18px;width:18px;height:18px;fill:none;stroke:currentColor;
+  stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.contact-direct a:hover .contact-ic{opacity:1}
 .cta-form{background:var(--cream);padding:46px;display:flex;flex-direction:column;gap:16px}
 .cta-form label{font-weight:500;font-size:.84rem;color:var(--ink-soft);letter-spacing:.02em;display:flex;flex-direction:column;gap:7px}
 .cta-form input,.cta-form textarea{border:1px solid var(--line);border-radius:12px;padding:13px;

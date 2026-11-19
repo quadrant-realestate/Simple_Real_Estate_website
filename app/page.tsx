@@ -491,11 +491,40 @@ export default function Home() {
                 <li>A shortlist that fits your goal</li>
               </ul>
               <div className="contact-direct">
-                <a href={waLink()} target="_blank" rel="noopener">💬 WhatsApp {site.phone}</a>
-                <a href={`tel:${site.phoneTel}`}>📞 Call {site.phone}</a>
-                <a href={`mailto:${site.email}`}>✉️ {site.email}</a>
-                <a href={site.mapUrl} target="_blank" rel="noopener">📍 {site.office}</a>
-                <a href={site.instagram} target="_blank" rel="noopener">📷 {site.instagramHandle}</a>
+                <a href={waLink()} target="_blank" rel="noopener">
+                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3.5 21l2.2-5A8.4 8.4 0 1 1 21 11.5Z" />
+                  </svg>
+                  WhatsApp {site.phone}
+                </a>
+                <a href={`tel:${site.phoneTel}`}>
+                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.5 3.5 9 4l1 3.5-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 3.5 1 .5 2.5a2 2 0 0 1-2 2.2A16 16 0 0 1 4.3 5.5a2 2 0 0 1 2.2-2Z" />
+                  </svg>
+                  Call {site.phone}
+                </a>
+                <a href={`mailto:${site.email}`}>
+                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="2.5" />
+                    <path d="m4 7 8 5.5L20 7" />
+                  </svg>
+                  {site.email}
+                </a>
+                <a href={site.mapUrl} target="_blank" rel="noopener">
+                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z" />
+                    <circle cx="12" cy="10" r="2.4" />
+                  </svg>
+                  {site.office}
+                </a>
+                <a href={site.instagram} target="_blank" rel="noopener">
+                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none" />
+                  </svg>
+                  {site.instagramHandle}
+                </a>
               </div>
             </div>
             <LeadFormPro />

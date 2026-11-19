@@ -26,9 +26,46 @@ export default function ScrollCost() {
     const wrap = wrapRef.current;
     if (!wrap) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce || window.innerWidth < 900) {
+    if (reduce) {
       setP(1);
       return;
+    }
+    // small screens have no scroll-scrub (the card isn't sticky): instead,
+    // reveal the fees step by step once the card scrolls into view
+    if (window.innerWidth < 900) {
+      if (!("IntersectionObserver" in window)) {
+        setP(1);
+        return;
+      }
+      let raf = 0;
+      const run = () => {
+        const start = performance.now();
+        const dur = 2200;
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / dur);
+          setP(t);
+          if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      };
+      // watch the card itself (not the tall section) so the trigger fires
+      // reliably however long the page is; start when it enters the viewport
+      const target = wrap.querySelector<HTMLElement>(".scrub-card") || wrap;
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            io.disconnect();
+            run();
+          });
+        },
+        { threshold: 0, rootMargin: "0px 0px -18% 0px" }
+      );
+      io.observe(target);
+      return () => {
+        io.disconnect();
+        cancelAnimationFrame(raf);
+      };
     }
     let raf = 0;
     const onScroll = () => {
