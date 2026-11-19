@@ -339,6 +339,11 @@ input[type=checkbox]{width:24px;height:24px;accent-color:var(--blue);cursor:poin
   letter-spacing:.09em;text-transform:uppercase;transition:background .25s ease,transform .25s ease}
 .project-btn:hover{background:var(--ink);transform:translateY(-2px)}
 .projects-note{margin-top:32px;font-size:.84rem;color:var(--ink-soft);line-height:1.6}
+.projects-cta{margin-top:30px;display:flex;justify-content:center}
+.projects-page-head{padding-bottom:10px}
+.back-link{display:inline-block;margin-bottom:18px;font-size:.9rem;font-weight:600;
+  color:var(--ink-soft);text-decoration:none;transition:color .2s ease}
+.back-link:hover{color:var(--blue)}
 
 /* ===== Responsive ===== */
 /* Tablet / iPad landscape: tighten the nav so 7 links fit */

@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import ScrollReveal from "@/components/ScrollReveal";
 import HeroDots from "@/components/HeroDots";
 import HeroKey from "@/components/HeroKey";
+import ProjectCard from "@/components/ProjectCard";
 import {
   CostCalculator,
   PaymentPlan,
@@ -106,50 +107,14 @@ export default function Home() {
             and we&apos;ll send you the full numbers.
           </p>
           <div className="projects-grid">
-            {projects.map((p) => (
-              <article className="project-card" key={p.name}>
-                {p.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    className="project-img"
-                    src={p.image}
-                    alt={`${p.name} by ${p.developer}`}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="project-noimg">{p.name}</div>
-                )}
-                <div className="project-body">
-                  <div className="project-head">
-                    <div>
-                      <div className="project-name">{p.name}</div>
-                      <div className="project-dev">
-                        by {p.developer} · {p.area}
-                      </div>
-                    </div>
-                    <span className="project-tag">{p.tag}</span>
-                  </div>
-                  <div className="project-meta">
-                    <div><span>Handover</span><b>{p.handover}</b></div>
-                    <div><span>Layouts</span><b>{p.beds}</b></div>
-                  </div>
-                  <div className="project-price">
-                    <small>Starting from</small>
-                    <strong>{p.priceFrom}</strong>
-                  </div>
-                  <a
-                    className="project-btn"
-                    href={waLink(
-                      `Hi Simple Real Estate! I'm interested in ${p.name} by ${p.developer}. Can you send the full details and payment plan?`
-                    )}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Register interest →
-                  </a>
-                </div>
-              </article>
+            {projects.slice(0, 3).map((p) => (
+              <ProjectCard p={p} key={p.name} />
             ))}
+          </div>
+          <div className="projects-cta">
+            <a href="/projects" className="btn btn-dark">
+              See all {projects.length} projects →
+            </a>
           </div>
           <p className="projects-note">
             Prices and handover dates are indicative and set by the developer.
@@ -347,7 +312,7 @@ export default function Home() {
               <p>{site.office}</p>
             </div>
             <nav className="footer-links">
-              <a href="#projects">Projects</a>
+              <a href="/projects">Projects</a>
               <a href="#cost">Cost calculator</a>
               <a href="#yield">Yield calculator</a>
               <a href="#mortgage">Mortgage</a>
