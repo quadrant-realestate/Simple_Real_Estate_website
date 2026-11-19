@@ -91,7 +91,7 @@ export const projects: Project[] = [
     beds: "Studio, 1 & 2 bed",
     handover: "2028",
     tag: "NEW LAUNCH",
-    image: "",
+    image: "/projects/kore.webp",
   },
   {
     name: "South Lofts",
@@ -118,37 +118,37 @@ export const escrowSteps: {
   {
     n: "01",
     title: "You pay into escrow, not the developer",
-    body: "Every instalment goes into the project's own escrow account at a bank approved by the regulator — and it is reported to the Land Department. The developer never touches it directly.",
+    body: "Every instalment goes into the project's regulated escrow account — the developer never touches it directly.",
     cite: "Law No. 8 of 2007 · Art. 7",
   },
   {
     n: "02",
     title: "One project, one account",
-    body: "A developer building five towers needs five escrow accounts. Your money can only ever be spent building your project — never another tower, never the company's bills.",
+    body: "Your money can only be spent building your project — never another tower or the company's bills.",
     cite: "Art. 9",
   },
   {
     n: "03",
     title: "Creditors can't touch it",
-    body: "If the developer owes money elsewhere, their creditors cannot seize the payments sitting in your project's escrow account. The law ring-fences it for buyers.",
+    body: "The developer's other creditors can't seize the money in your project's escrow account.",
     cite: "Art. 9(1)",
   },
   {
     n: "04",
     title: "Released only as the building rises",
-    body: "Money is paid out in stages against real construction progress, verified by independent engineers before each release. No building, no money.",
+    body: "Money is released in stages against real construction progress. No building, no money.",
     cite: "Approved by RERA",
   },
   {
     n: "05",
     title: "5% held back for a year",
-    body: "Even after the completion certificate, the bank keeps 5% of the account, released only a year after the units are registered to buyers — your cushion against defects.",
+    body: "The bank holds back 5% for a year after handover — your cushion against defects.",
     cite: "Art. 14",
   },
   {
     n: "06",
     title: "If it stalls: finished or refunded",
-    body: "If a project isn't completed, the escrow agent and the Land Department step in to finish it or refund buyers. Misusing the funds means jail and/or a fine of at least AED 100,000.",
+    body: "If a project stalls, the regulator steps in to finish it or refund buyers.",
     cite: "Art. 15 · Art. 16",
   },
 ];
@@ -157,16 +157,12 @@ export const escrowSteps: {
 //  SAFETY CHECKLIST — tick-box list with a live score.
 // ====================================================================
 export const safetyChecks: { label: string; hint: string }[] = [
-  { label: "The developer is registered with RERA", hint: "Look them up by name in the Dubai REST app." },
-  { label: "The project has its own escrow account", hint: "Check status, developer and escrow details in the app." },
-  { label: "My payment details match that escrow account exactly", hint: "Same bank, same account number — never cash or a personal account." },
-  { label: "The escrow account is written into my contract (SPA)", hint: "Your Sale & Purchase Agreement should name it." },
-  { label: "My purchase is registered with DLD (Oqood)", hint: "The interim register for off-plan sales. Ask for the certificate." },
-  { label: "My broker is RERA-registered", hint: "Check their Broker Registration Number (BRN)." },
-  { label: "Instalments are linked to construction progress", hint: "Compare the completion % with each milestone before paying." },
-  { label: "I've read the handover date and delay clauses", hint: "Know what happens if completion slips." },
-  { label: "I know the developer's track record", hint: "Past handovers — on time, and quality today." },
-  { label: "Every receipt is in the project's name", hint: "Keep them all for registration and any dispute." },
+  { label: "The developer is registered with RERA", hint: "Look them up in the Dubai REST app." },
+  { label: "The project has its own escrow account", hint: "Check it in the app before you pay." },
+  { label: "My payment details match that escrow account", hint: "Never cash or a personal account." },
+  { label: "The escrow account is named in my contract (SPA)", hint: "It should be written into the agreement." },
+  { label: "My broker is RERA-registered", hint: "Ask for their Broker Registration Number (BRN)." },
+  { label: "Instalments are linked to construction progress", hint: "No building, no payment." },
 ];
 
 // ====================================================================
@@ -264,22 +260,14 @@ export const guides: { kicker: string; title: string; desc: string; pages: strin
 //  GLOSSARY — speak Dubai property.
 // ====================================================================
 export const glossary: { term: string; cat: string; def: string }[] = [
-  { term: "DLD", cat: "regulator", def: "Dubai Land Department — registers property, ownership and transactions, and collects the 4% transfer fee." },
-  { term: "RERA", cat: "regulator", def: "Real Estate Regulatory Agency, part of DLD. Regulates developers, brokers, escrow accounts and off-plan projects." },
-  { term: "Escrow account", cat: "off-plan", def: "A project-specific bank account where off-plan buyers' payments are held and released to the developer only for construction." },
-  { term: "Oqood", cat: "off-plan", def: "The DLD's interim register for off-plan sales. Your purchase is recorded here before the building is complete." },
-  { term: "SPA", cat: "contract", def: "Sale & Purchase Agreement — the main contract with the developer or seller, setting price, plan and handover terms." },
-  { term: "Title deed", cat: "ownership", def: "The official record of ownership issued by DLD once the property is transferred into your name." },
-  { term: "Transfer fee", cat: "cost", def: "The DLD fee on a purchase: 4% of the price, paid by the buyer by market convention." },
-  { term: "Handover", cat: "off-plan", def: "When the developer completes the building and gives you the keys. A large instalment is often due here." },
-  { term: "Post-handover plan", cat: "off-plan", def: "A payment plan where part of the price is paid in instalments after you already have the keys." },
-  { term: "Service charge", cat: "cost", def: "The yearly fee to maintain the building and community, charged per square foot of your unit." },
-  { term: "NOC", cat: "resale", def: "No-Objection Certificate from the developer, needed to transfer a resale property." },
-  { term: "BRN", cat: "broker", def: "Broker Registration Number. Every licensed broker has one — check it before you deal with them." },
-  { term: "Freehold", cat: "ownership", def: "Full ownership of the property. Foreigners can buy freehold in designated areas of Dubai." },
-  { term: "Snagging", cat: "handover", def: "Inspecting a new unit for defects before or at handover so the developer fixes them first." },
-  { term: "Dubai REST", cat: "tool", def: "The DLD's official app: look up projects, developers, brokers and your property services in minutes." },
-  { term: "Golden Visa", cat: "residency", def: "A 10-year renewable UAE residency. Property worth AED 2M+ can make you eligible, with conditions." },
+  { term: "DLD", cat: "regulator", def: "Dubai Land Department — registers property and collects the 4% transfer fee." },
+  { term: "RERA", cat: "regulator", def: "The regulator for developers, brokers and escrow accounts." },
+  { term: "Escrow account", cat: "off-plan", def: "A project account that holds your payments, released only for construction." },
+  { term: "SPA", cat: "contract", def: "Sale & Purchase Agreement — your main contract: price, plan and handover." },
+  { term: "Transfer fee", cat: "cost", def: "The DLD fee on a purchase: 4% of the price, paid by the buyer." },
+  { term: "Handover", cat: "off-plan", def: "When the developer finishes and gives you the keys." },
+  { term: "Freehold", cat: "ownership", def: "Full ownership — foreigners can buy it in designated areas of Dubai." },
+  { term: "Golden Visa", cat: "residency", def: "10-year UAE residency; property of AED 2M+ can qualify." },
 ];
 
 // --- Trust stats (shown as count-up band) ---
@@ -307,7 +295,5 @@ export const areaPrices: { area: string; sqft: number; yield: string }[] = [
   { area: "Downtown Dubai", sqft: 2989, yield: "4.7%" },
   { area: "Dubai Creek Harbour", sqft: 2564, yield: "5.1%" },
   { area: "Business Bay", sqft: 2437, yield: "6.6%" },
-  { area: "Al Satwa", sqft: 2294, yield: "5.3%" },
-  { area: "Al Jaddaf", sqft: 2025, yield: "5.6%" },
   { area: "Dubai — median", sqft: 1720, yield: "7.0%" },
 ];

@@ -1,9 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+
+  // lock page scroll while the full-screen menu is open; close on Esc
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
   return (
     <header className="nav" id="top">
       <div className="nav-inner">
@@ -25,10 +38,11 @@ export default function Nav() {
         <a href="/#contact" className="btn btn-dark nav-cta">Ask us anything</a>
         <button
           className="nav-toggle"
-          aria-label="Menu"
+          aria-label={open ? "Close menu" : "Menu"}
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          ☰
+          {open ? "✕" : "☰"}
         </button>
       </div>
     </header>

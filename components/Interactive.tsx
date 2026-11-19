@@ -236,9 +236,9 @@ export function InvestorQuiz() {
             className="quiz-option"
             onClick={() => pick(o)}
           >
-            <span className="quiz-icon">{o.icon}</span>
             <span className="quiz-label">{o.label}</span>
             <span className="quiz-sub">{o.sub}</span>
+            <span className="quiz-go" aria-hidden="true">→</span>
           </button>
         ))}
       </div>

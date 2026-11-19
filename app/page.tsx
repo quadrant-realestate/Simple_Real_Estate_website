@@ -3,6 +3,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import HeroDots from "@/components/HeroDots";
 import HeroCostCard from "@/components/HeroCostCard";
 import ScrollCost from "@/components/ScrollCost";
+import ExitKitModal from "@/components/ExitKitModal";
 import ProjectCard from "@/components/ProjectCard";
 import {
   CostCalculator,
@@ -120,9 +121,8 @@ export default function Home() {
           <div className="sign"><span className="pulse-dot" aria-hidden="true" />Live Dubai market data</div>
           <h2>Dubai, <span className="italic-mark">by the numbers.</span></h2>
           <p className="section-lead">
-            Not our opinion — the actual market. These are real figures from
-            Dubai Land Department transactions over the last 12 months, so you
-            start from the truth, not a brochure.
+            Real figures from Dubai Land Department transactions over the last
+            12 months — not a brochure.
           </p>
 
           <div className="market-stats">
@@ -367,12 +367,11 @@ export default function Home() {
           <div className="sign"><span className="sign-num">10</span>Explained in 50 seconds</div>
           <h2>Watch it, <span className="italic-mark">simplified.</span></h2>
           <p className="section-lead">
-            Short, animated breakdowns from our page — the history, the mistakes,
-            and the numbers behind how Dubai and Abu Dhabi got here. Comment the
-            keyword on Instagram and the full guide lands in your DMs.
+            Short, animated breakdowns from our page. Comment the keyword on
+            Instagram and the full guide lands in your DMs.
           </p>
           <div className="reels-grid">
-            {reels.map((r) => (
+            {reels.slice(0, 3).map((r) => (
               <a
                 className="reel"
                 href={r.href}
@@ -402,8 +401,7 @@ export default function Home() {
           <div className="sign"><span className="sign-num">11</span>The investor kit, free</div>
           <h2>Everything you need, <span className="italic-mark">in writing.</span></h2>
           <p className="section-lead">
-            The same guides people ask for in our comments — the real numbers,
-            the checks, and worksheets for your own deal. No sign-up games.
+            The same guides people ask for in our comments — free, no sign-up games.
           </p>
           <div className="guides-grid">
             {guides.map((g) => (
@@ -542,6 +540,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <ExitKitModal />
     </>
   );
 }

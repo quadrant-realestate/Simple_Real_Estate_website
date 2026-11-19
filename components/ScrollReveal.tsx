@@ -86,7 +86,7 @@ export default function ScrollReveal() {
             })
           : s;
       };
-      const dur = 1100;
+      const dur = 1500;
       const start = performance.now();
       const tick = (now: number) => {
         const t = Math.min(1, (now - start) / dur);
@@ -116,26 +116,9 @@ export default function ScrollReveal() {
       return () => cleanups.forEach((fn) => fn());
     }
 
-    /* --- Count up the trust-band + market numbers once they scroll in --- */
-    const trustNums = Array.from(
-      document.querySelectorAll<HTMLElement>(
-        ".trust-item strong, .market-stat strong"
-      )
-    );
-    if (trustNums.length) {
-      const tio = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((en) => {
-            if (!en.isIntersecting) return;
-            runCounter(en.target as HTMLElement);
-            tio.unobserve(en.target);
-          });
-        },
-        { threshold: 0.6 }
-      );
-      trustNums.forEach((el) => tio.observe(el));
-      cleanups.push(() => tio.disconnect());
-    }
+    /* Trust-band + market numbers count up, but only AFTER their card has
+       faded in (below) — otherwise the animation finishes while the element
+       is still invisible and the viewer never sees it tick. */
 
     /* --- Stagger siblings for a cascading reveal --- */
     all.forEach((el) => {
@@ -156,6 +139,14 @@ export default function ScrollReveal() {
           const el = en.target as HTMLElement;
           el.classList.add("in");
           io.unobserve(el);
+          // once the card is actually visible, count its stat number up
+          if (el.matches(".trust-item, .market-stat")) {
+            el.querySelectorAll<HTMLElement>("strong").forEach((n) => {
+              if (n.dataset.counted) return;
+              n.dataset.counted = "1";
+              window.setTimeout(() => runCounter(n), 480);
+            });
+          }
         });
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
