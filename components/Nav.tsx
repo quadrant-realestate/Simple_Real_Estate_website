@@ -17,9 +17,9 @@ export default function Nav() {
           <a href="/projects" onClick={close}>Projects</a>
           <a href="/#cost" onClick={close}>Costs</a>
           <a href="/#escrow" onClick={close}>Off-plan</a>
-          <a href="/#yield" onClick={close}>Yields</a>
-          <a href="/#mortgage" onClick={close}>Mortgage</a>
-          <a href="/#stories" onClick={close}>Stories</a>
+          <a href="/#safety" onClick={close}>Safety</a>
+          <a href="/#visa" onClick={close}>Golden Visa</a>
+          <a href="/#reels" onClick={close}>Reels</a>
           <a href="/#faq" onClick={close}>FAQ</a>
         </nav>
         <a href="/#contact" className="btn btn-dark nav-cta">Ask us anything</a>

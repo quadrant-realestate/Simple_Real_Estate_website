@@ -9,9 +9,17 @@ const REVEAL: [string, string][] = [
   [".section-lead", "up"],
   [".calc-card", "scale"],
   [".project-card", "up"],
-  [".story-card", "up"],
+  [".trust-item", "up"],
+  [".market-stat", "up"],
+  [".market-chart", "up"],
+  [".escrow-card", "up"],
+  [".verify", "up"],
+  [".safety", "scale"],
+  [".reel", "up"],
+  [".guide-card", "up"],
+  [".quiz-shell", "scale"],
+  [".visa-meter", "up"],
   [".step", "up"],
-  [".safe-check", "right"],
   [".visa-card", "scale"],
   [".visa-grid > div:first-child", "left"],
   [".faq-list details", "up"],
@@ -25,12 +33,20 @@ export default function ScrollReveal() {
     ).matches;
     const cleanups: (() => void)[] = [];
 
-    /* --- Sticky nav shadow + hero parallax on scroll --- */
+    /* --- Top scroll-progress bar --- */
+    const progress = document.createElement("div");
+    progress.className = "scroll-progress";
+    document.body.appendChild(progress);
+    cleanups.push(() => progress.remove());
+
+    /* --- Sticky nav shadow + hero parallax + progress on scroll --- */
     const nav = document.querySelector(".nav");
     const glow = document.querySelector<HTMLElement>(".hero");
     const onScroll = () => {
       const y = window.scrollY;
       if (nav) nav.classList.toggle("scrolled", y > 10);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
       if (!reduce && y < 900) {
         if (glow) glow.style.setProperty("--p", `${y * 0.12}px`);
       }
@@ -98,6 +114,27 @@ export default function ScrollReveal() {
     if (reduce || !("IntersectionObserver" in window)) {
       all.forEach((el) => el.classList.add("in"));
       return () => cleanups.forEach((fn) => fn());
+    }
+
+    /* --- Count up the trust-band + market numbers once they scroll in --- */
+    const trustNums = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".trust-item strong, .market-stat strong"
+      )
+    );
+    if (trustNums.length) {
+      const tio = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (!en.isIntersecting) return;
+            runCounter(en.target as HTMLElement);
+            tio.unobserve(en.target);
+          });
+        },
+        { threshold: 0.6 }
+      );
+      trustNums.forEach((el) => tio.observe(el));
+      cleanups.push(() => tio.disconnect());
     }
 
     /* --- Stagger siblings for a cascading reveal --- */
