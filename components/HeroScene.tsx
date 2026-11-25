@@ -26,6 +26,7 @@ function Tower({ w, h, fill, lit }: { w: number; h: number; fill: string; lit?: 
       win.push(
         <rect
           key={`${r}-${c}`}
+          className={on ? "win-lit" : undefined}
           x={10 + c * ((w - 16) / cols)}
           y={14 + r * ((h - 20) / rows)}
           width={(w - 16) / cols - 6}

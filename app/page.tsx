@@ -4,6 +4,8 @@ import HeroSearch from "@/components/HeroSearch";
 import HeroGuy from "@/components/HeroGuy";
 import HeroScene from "@/components/HeroScene";
 import HorizontalGallery from "@/components/HorizontalGallery";
+import BuyingJourney from "@/components/BuyingJourney";
+import ReelTowers from "@/components/ReelTowers";
 import { ManPhone, ManCheer, ManCoins, ManWave } from "@/components/Characters";
 import ExitKitModal from "@/components/ExitKitModal";
 import ProjectCard from "@/components/ProjectCard";
@@ -39,15 +41,22 @@ export default function Home() {
         <span className="hero-sticker hs1" aria-hidden="true">REAL NUMBERS</span>
         <span className="hero-sticker hs2" aria-hidden="true">NO SIGN-UP</span>
         <span className="hero-sticker hs3" aria-hidden="true">DLD DATA</span>
+        {/* birds drifting across the sky — ambient life up top */}
+        <span className="hero-bird hb1" aria-hidden="true">
+          <svg viewBox="0 0 26 12"><path d="M2 9 Q6.5 2 11 9 Q15.5 2 20 9" fill="none" stroke="#2A3B55" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </span>
+        <span className="hero-bird hb2" aria-hidden="true">
+          <svg viewBox="0 0 26 12"><path d="M2 9 Q6.5 2 11 9 Q15.5 2 20 9" fill="none" stroke="#2A3B55" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </span>
         <div className="container">
           <div className="hero-stack">
             <span className="tag">What it really costs</span>
             <h1 className="light">
-              The asking price is <span className="mark-word">never</span> the price.
+              See the <span className="mark-word">real cost</span> of any Dubai off-plan home.
             </h1>
             <p className="hero-sub">
-              No guesswork — real Dubai Land Department prices and{" "}
-              <strong>free tools</strong> to verify them, before you ever commit.
+              The asking price is never the price. We add every hidden fee from real
+              Dubai Land Department data — <strong>free, no sign-up</strong>.
             </p>
 
             <HeroSearch />
@@ -119,6 +128,8 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <ReelTowers />
 
           <div className="market-chart-wrap">
             <div className="market-chart-head">
@@ -199,6 +210,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      <BuyingJourney />
 
       {/* 03 — OFF-PLAN SAFETY: escrow explained + interactive checklist (merged) */}
       <section className="section dark" id="safety">
