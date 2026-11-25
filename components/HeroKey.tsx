@@ -19,21 +19,31 @@ export default function HeroKey() {
     // target (where the mouse points) and current (eased) positions, -1..1
     let tx = 0, ty = 0, cx = 0, cy = 0;
     let raf = 0;
+    let lastMove = 0; // when the pointer last moved
 
     const onMove = (e: PointerEvent) => {
       const r = wrap.getBoundingClientRect();
       tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
       ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      lastMove = performance.now();
     };
-    const onLeave = () => { tx = 0; ty = 0; };
+    const onLeave = () => { lastMove = 0; };
 
-    const tick = () => {
+    const tick = (now: number) => {
+      // when the pointer is idle, the key keeps a slow, living sway (reel feel)
+      if (now - lastMove > 1200) {
+        const t = now / 1000;
+        tx = Math.sin(t * 0.55) * 0.5;
+        ty = Math.sin(t * 0.8) * 0.4;
+      }
       cx += (tx - cx) * 0.08;
       cy += (ty - cy) * 0.08;
+      // gentle vertical float layered on top of the pointer/idle motion
+      const floatY = Math.sin(now / 1500) * 5;
       // key moves with the pointer, tilts slightly
       keyEl.setAttribute(
         "transform",
-        `rotate(-20 180 180) translate(${cx * 14} ${cy * 14}) rotate(${cx * 4})`
+        `rotate(-20 180 180) translate(${cx * 14} ${cy * 14 + floatY}) rotate(${cx * 4})`
       );
       // glow drifts the opposite way for depth
       if (glowEl) {
@@ -87,6 +97,8 @@ export default function HeroKey() {
           {/* teeth */}
           <rect x="186" y="232" width="16" height="11" rx="2" fill="#C6A75A" />
           <rect x="186" y="250" width="26" height="11" rx="2" fill="#C6A75A" />
+          {/* travelling specular shine on the key head */}
+          <circle className="key-shine" cx="168" cy="104" r="7" fill="#FFF7E4" opacity="0" />
         </g>
 
         {/* asymmetric 2-corner brackets (top-left + bottom-right) */}

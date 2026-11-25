@@ -132,26 +132,43 @@ export default function ScrollReveal() {
       if (i > 0) el.style.transitionDelay = `${Math.min(i, 6) * 90}ms`;
     });
 
+    // reveal an element now + count up any stat inside it
+    const reveal = (el: HTMLElement) => {
+      el.classList.add("in");
+      if (el.matches(".trust-item, .market-stat")) {
+        el.querySelectorAll<HTMLElement>("strong").forEach((n) => {
+          if (n.dataset.counted) return;
+          n.dataset.counted = "1";
+          window.setTimeout(() => runCounter(n), 480);
+        });
+      }
+    };
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((en) => {
           if (!en.isIntersecting) return;
           const el = en.target as HTMLElement;
-          el.classList.add("in");
           io.unobserve(el);
-          // once the card is actually visible, count its stat number up
-          if (el.matches(".trust-item, .market-stat")) {
-            el.querySelectorAll<HTMLElement>("strong").forEach((n) => {
-              if (n.dataset.counted) return;
-              n.dataset.counted = "1";
-              window.setTimeout(() => runCounter(n), 480);
-            });
-          }
+          reveal(el);
         });
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
-    all.forEach((el) => io.observe(el));
+
+    // Anything already on screen (e.g. the top of a page reached via a
+    // client-side navigation / search) is shown immediately so it never
+    // stays stuck invisible; everything below the fold waits for scroll.
+    const vh = window.innerHeight || 800;
+    all.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) {
+        el.style.transitionDelay = "0ms";
+        reveal(el);
+      } else {
+        io.observe(el);
+      }
+    });
     cleanups.push(() => io.disconnect());
 
     return () => cleanups.forEach((fn) => fn());

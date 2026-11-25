@@ -23,7 +23,7 @@ export default function HeroDots() {
     const R = 1.5; // base radius
     const RMAX = 5.5; // radius at the cursor
     const REACH = 125; // influence radius
-    const GOLD = "198,167,90"; // --yellow channel
+    const DOT = "255,255,255"; // white on the sky hero
 
     let w = 0;
     let h = 0;
@@ -56,7 +56,7 @@ export default function HeroDots() {
       for (const d of dots) {
         ctx.beginPath();
         ctx.arc(d.x, d.y, R, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${GOLD},0.16)`;
+        ctx.fillStyle = `rgba(${DOT},0.45)`;
         ctx.fill();
       }
     };
@@ -70,10 +70,10 @@ export default function HeroDots() {
         const t = mouse.on ? Math.max(0, 1 - dist / REACH) : 0;
         const e = t * t * (3 - 2 * t); // smoothstep
         const r = R + (RMAX - R) * e;
-        const a = 0.14 + 0.5 * e;
+        const a = 0.45 + 0.5 * e;
         ctx.beginPath();
         ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${GOLD},${a})`;
+        ctx.fillStyle = `rgba(${DOT},${a})`;
         ctx.fill();
       }
       // ease the hero graphic toward the cursor + scroll parallax

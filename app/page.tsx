@@ -1,30 +1,19 @@
 import Nav from "@/components/Nav";
 import ScrollReveal from "@/components/ScrollReveal";
-import HeroDots from "@/components/HeroDots";
-import HeroCostCard from "@/components/HeroCostCard";
-import ScrollCost from "@/components/ScrollCost";
+import HeroSearch from "@/components/HeroSearch";
+import HeroGuy from "@/components/HeroGuy";
+import HeroScene from "@/components/HeroScene";
+import HorizontalGallery from "@/components/HorizontalGallery";
+import { ManPhone, ManCheer, ManCoins, ManWave } from "@/components/Characters";
 import ExitKitModal from "@/components/ExitKitModal";
 import ProjectCard from "@/components/ProjectCard";
-import {
-  CostCalculator,
-  PaymentPlan,
-  YieldCalculator,
-  MortgageCalculator,
-} from "@/components/Calculators";
-import {
-  SafetyChecklist,
-  VisaMeter,
-  InvestorQuiz,
-  LeadFormPro,
-} from "@/components/Interactive";
+import { CostCalculator, YieldCalculator } from "@/components/Calculators";
+import { SafetyChecklist, VisaMeter, LeadFormPro } from "@/components/Interactive";
 import {
   site,
   waLink,
   projects,
   escrowSteps,
-  reels,
-  guides,
-  glossary,
   trustStats,
   marketHeadline,
   areaPrices,
@@ -32,59 +21,54 @@ import {
 
 const maxSqft = Math.max(...areaPrices.map((a) => a.sqft));
 
-const faqs: [string, React.ReactNode][] = [
-  ["Can a foreigner buy property in the UAE?", <>Yes. In designated <strong>freehold areas</strong> (most of new Dubai and parts of Abu Dhabi) anyone of any nationality can fully own property. No residency or local partner is required to buy.</>],
-  ["How much cash do I need on top of the price?", <>Roughly <strong>6–8% extra</strong> for a cash purchase (4% DLD fee, ~2% agency, plus registration). With a mortgage, budget a bit more for bank and valuation fees. Use the cost calculator above for your exact number.</>],
-  ["Is off-plan safe, or will I lose my money?", <>Your payments go into a government-controlled <strong>escrow account</strong>, released to the developer only as they build. We always verify the developer, escrow and RERA status before you pay anything.</>],
-  ["What is a good rental yield in Dubai?", <><strong>Gross</strong> yields of 6–9% are common. But <strong>net</strong> (after service charges and empty periods) is usually 5–7%. The yield calculator above shows the honest figure.</>],
-  ["Will buying get me a visa?", <>Property of <strong>AED 2M+</strong> can qualify for the 10-year Golden Visa, and <strong>AED 750k+</strong> for a 2-year investor visa, subject to conditions.</>],
-  ["Can I get a mortgage as a non-resident?", <>Yes, many UAE banks lend to non-residents — usually up to <strong>50–60%</strong> of the price, at slightly higher rates. Residents can often borrow up to 80% on lower-priced homes.</>],
-  ["Do you charge me a fee?", <>For most new/off-plan projects the developer pays the commission, so our help costs you nothing. We&apos;ll always tell you upfront if anything applies.</>],
-];
-
 export default function Home() {
   return (
     <>
       <Nav />
       <ScrollReveal />
 
-      {/* HERO */}
-      <section className="hero">
-        <HeroDots />
-        <div className="hero-skyline" aria-hidden="true" />
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <div className="tag">🇦🇪 Dubai &amp; Abu Dhabi · real numbers, not brochures</div>
-            <h1>
-              UAE real estate,
-              <br />
-              <span className="mark-word">simplified.</span>
+      {/* HERO — prop971-style dark hero: centered headline over a skyline + tabbed search */}
+      <section className="hero hero-center">
+        <span className="hero-halftone" aria-hidden="true" />
+        {/* reel-style flat scene: grass, trees, towers */}
+        <span className="hero-scene" aria-hidden="true"><HeroScene /></span>
+        {/* blocky cartoon characters, Instagram-reel style */}
+        <span className="hero-char hero-char-l" aria-hidden="true"><HeroGuy /></span>
+        <span className="hero-char hero-char-r" aria-hidden="true"><ManCheer /></span>
+        {/* floating yellow word-stickers, Instagram-reel style */}
+        <span className="hero-sticker hs1" aria-hidden="true">REAL NUMBERS</span>
+        <span className="hero-sticker hs2" aria-hidden="true">NO SIGN-UP</span>
+        <span className="hero-sticker hs3" aria-hidden="true">DLD DATA</span>
+        <div className="container">
+          <div className="hero-stack">
+            <span className="tag">What it really costs</span>
+            <h1 className="light">
+              The asking price is <span className="mark-word">never</span> the price.
             </h1>
-            <p className="lead">
-              Most people buy property on feelings and fancy brochures. We show
-              you the <strong>real numbers</strong> — in simple words — before
-              you spend a single dirham.
+            <p className="hero-sub">
+              No guesswork — real Dubai Land Department prices and{" "}
+              <strong>free tools</strong> to verify them, before you ever commit.
             </p>
-            <div className="hero-actions">
-              <a href="#cost" className="btn btn-yellow">
-                See what it really costs →
-              </a>
-              <a href={waLink("Hi Simple Real Estate! I'd like to talk to a human about buying in the UAE.")} target="_blank" rel="noopener" className="btn btn-ghost">
-                Talk to a human
-              </a>
+
+            <HeroSearch />
+
+            <a href="/projects?sort=new" className="hero-banner">
+              <span className="hero-banner-badge">NEW</span>
+              <span className="hero-banner-txt">
+                <strong>New launches open now</strong>
+                First-day pricing and the longest payment plans, before public release.
+              </span>
+              <span className="hero-banner-go">See new projects →</span>
+            </a>
+
+            <div className="hsearch-pills">
+              <span className="hsearch-pill"><strong>0%</strong> property tax</span>
+              <span className="hsearch-pill"><strong>Golden Visa</strong> from AED 2M</span>
+              <span className="hsearch-pill"><strong>100%</strong> freehold</span>
             </div>
-            <ul className="hero-trust">
-              <li><span className="hero-trust-dot" />Dubai Land Department data</li>
-              <li><span className="hero-trust-dot" />RERA &amp; escrow checked</li>
-              <li><span className="hero-trust-dot" />No fees to buyers</li>
-            </ul>
-            <div className="hero-stats">
-              <div><strong>4%</strong><span>DLD transfer fee</span></div>
-              <div><strong>5–8%</strong><span>typical net yield</span></div>
-              <div><strong>AED 2M</strong><span>Golden Visa door</span></div>
-            </div>
+
+            <a href="#market" className="hero-data-link">Open free market data →</a>
           </div>
-          <HeroCostCard />
         </div>
       </section>
 
@@ -117,7 +101,8 @@ export default function Home() {
 
       {/* MARKET DATA — real Dubai figures */}
       <section className="section market" id="market">
-        <div className="container">
+        <div className="container has-char">
+          <div className="sec-char" aria-hidden="true"><ManPhone /></div>
           <div className="sign"><span className="pulse-dot" aria-hidden="true" />Live Dubai market data</div>
           <h2>Dubai, <span className="italic-mark">by the numbers.</span></h2>
           <p className="section-lead">
@@ -170,19 +155,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 01 — COST: scroll-scrubbed reveal, then the interactive calculator */}
-      <section id="cost">
-        <ScrollCost />
-        <div className="section">
-          <div className="container">
-            <div className="sign"><span className="sign-num">01b</span>Now your turn</div>
-            <h2>Try it with <span className="italic-mark">your</span> number.</h2>
-            <p className="section-lead">
-              Move the slider and see your <strong>true cash needed</strong> on day
-              one — for a cash purchase or with a mortgage.
-            </p>
-            <CostCalculator />
-          </div>
+      {/* HORIZONTAL PINNED GALLERY — scroll locks, cards slide sideways */}
+      <HorizontalGallery />
+
+      {/* 01 — COST CALCULATOR */}
+      <section className="section" id="cost">
+        <div className="container has-char">
+          <div className="sec-char" aria-hidden="true"><ManCoins /></div>
+          <div className="sign"><span className="sign-num">01</span>Your true cash on day one</div>
+          <h2>What you&apos;ll <span className="italic-mark">really</span> pay up front.</h2>
+          <p className="section-lead">
+            Move the slider and see your <strong>true cash needed</strong> on day
+            one — for a cash purchase or with a mortgage. No surprises at the
+            counter.
+          </p>
+          <CostCalculator />
         </div>
       </section>
 
@@ -213,10 +200,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 03 — ESCROW / OFF-PLAN SIMPLIFIED */}
-      <section className="section dark" id="escrow">
-        <div className="container">
-          <div className="sign sign-light"><span className="sign-num">03</span>Off-plan, simplified</div>
+      {/* 03 — OFF-PLAN SAFETY: escrow explained + interactive checklist (merged) */}
+      <section className="section dark" id="safety">
+        <div className="container has-char">
+          <div className="sec-char" aria-hidden="true"><ManWave /></div>
+          <div className="sign sign-light"><span className="sign-num">03</span>Before you transfer a dirham</div>
           <h2 className="light">
             In the UAE, your off-plan money is
             <br />
@@ -253,40 +241,23 @@ export default function Home() {
               <p>Look the project up on <strong>Dubai REST</strong>, the Land Department&apos;s official app — it shows the developer, progress and escrow details.</p>
             </div>
           </div>
+
+          <div className="escrow-safety">
+            <h3 className="light">Now run the check on your own project.</h3>
+            <p className="section-lead light">
+              Tick what you&apos;ve already verified. Most of it takes five minutes in
+              the Dubai REST app. Don&apos;t send money until the score hits ten.
+            </p>
+            <SafetyChecklist />
+          </div>
         </div>
       </section>
 
-      {/* 04 — PAYMENT PLAN */}
-      <section className="section" id="plan">
-        <div className="container">
-          <div className="sign"><span className="sign-num">04</span>See every payment first</div>
-          <h2>Payment plans, <span className="italic-mark">in plain English.</span></h2>
-          <p className="section-lead">
-            &quot;60/40&quot;, &quot;post-handover&quot;, &quot;1% monthly&quot; —
-            developers love confusing names. Pick a plan and a price, and
-            we&apos;ll show you exactly what you pay and when.
-          </p>
-          <PaymentPlan />
-        </div>
-      </section>
-
-      {/* 05 — SAFETY CHECK */}
-      <section className="section tint" id="safety">
-        <div className="container">
-          <div className="sign"><span className="sign-num">05</span>Before you transfer a dirham</div>
-          <h2>Is your project <span className="italic-mark">safe to pay?</span></h2>
-          <p className="section-lead">
-            Tick what you&apos;ve already verified. Most of it takes five minutes in
-            the Dubai REST app. Don&apos;t send money until the score hits ten.
-          </p>
-          <SafetyChecklist />
-        </div>
-      </section>
-
-      {/* 06 — YIELD */}
+      {/* 04 — YIELD */}
       <section className="section" id="yield">
-        <div className="container">
-          <div className="sign"><span className="sign-num">06</span>Gross sells, net pays</div>
+        <div className="container has-char">
+          <div className="sec-char" aria-hidden="true"><ManCheer /></div>
+          <div className="sign"><span className="sign-num">04</span>Gross sells, net pays</div>
           <h2>Gross yield <span className="italic-mark">sells.</span> Net yield <span className="italic-mark">pays.</span></h2>
           <p className="section-lead">
             Agents quote the big &quot;gross yield&quot; number. But after service
@@ -297,23 +268,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 07 — MORTGAGE */}
-      <section className="section tint" id="mortgage">
-        <div className="container">
-          <div className="sign"><span className="sign-num">07</span>The bank&apos;s real cost</div>
-          <h2>Your monthly payment, <span className="italic-mark">before you fall in love.</span></h2>
-          <p className="section-lead">
-            Work out what the bank will ask for every month — and how much you
-            need as a down payment.
-          </p>
-          <MortgageCalculator />
-        </div>
-      </section>
-
-      {/* 08 — VISA */}
+      {/* 05 — VISA */}
       <section className="section dark visa" id="visa">
         <div className="container">
-          <div className="sign sign-light"><span className="sign-num">08</span>They came to race. They stayed.</div>
+          <div className="sign sign-light"><span className="sign-num">05</span>They came to race. They stayed.</div>
           <div className="visa-grid">
             <div>
               <h2 className="light">Invest. Get a <span className="italic-mark yellow">10-year visa.</span></h2>
@@ -346,133 +304,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 09 — INVESTOR MATCH */}
-      <section className="section" id="match">
-        <div className="container">
-          <div className="sign"><span className="sign-num">09</span>60 seconds</div>
-          <h2>What kind of Dubai <span className="italic-mark">investor are you?</span></h2>
-          <p className="section-lead">
-            Five quick questions. You get a plain-English profile — and the kind
-            of projects worth looking at for it.
-          </p>
-          <div className="quiz-shell">
-            <InvestorQuiz />
-          </div>
-        </div>
-      </section>
-
-      {/* 10 — REELS / INSTAGRAM */}
-      <section className="section tint" id="reels">
-        <div className="container">
-          <div className="sign"><span className="sign-num">10</span>Explained in 50 seconds</div>
-          <h2>Watch it, <span className="italic-mark">simplified.</span></h2>
-          <p className="section-lead">
-            Short, animated breakdowns from our page. Comment the keyword on
-            Instagram and the full guide lands in your DMs.
-          </p>
-          <div className="reels-grid">
-            {reels.slice(0, 3).map((r) => (
-              <a
-                className="reel"
-                href={r.href}
-                target="_blank"
-                rel="noopener"
-                key={r.href}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="reel-cover" src={r.img} alt={r.title} loading="lazy" />
-                <span className="reel-play" aria-hidden="true">▶</span>
-                <span className="reel-foot">
-                  <span className="reel-sub">{r.sub}</span>
-                  <span className="reel-kw">comment “{r.keyword}” for the guide</span>
-                </span>
-              </a>
-            ))}
-          </div>
-          <a href={`${site.instagram}/reels/`} target="_blank" rel="noopener" className="btn btn-dark follow-btn">
-            Watch all reels on {site.instagramHandle} →
-          </a>
-        </div>
-      </section>
-
-      {/* 11 — FREE GUIDES */}
-      <section className="section" id="guides">
-        <div className="container">
-          <div className="sign"><span className="sign-num">11</span>The investor kit, free</div>
-          <h2>Everything you need, <span className="italic-mark">in writing.</span></h2>
-          <p className="section-lead">
-            The same guides people ask for in our comments — free, no sign-up games.
-          </p>
-          <div className="guides-grid">
-            {guides.map((g) => (
-              <article className="guide-card" key={g.title}>
-                <div className="guide-kicker">{g.kicker}</div>
-                <h4>{g.title}</h4>
-                <p>{g.desc}</p>
-                <div className="guide-foot">
-                  <span className="guide-pages">{g.pages}</span>
-                  <a
-                    href={waLink(
-                      `Hi Simple Real Estate! Can you send me the free guide: "${g.title}"?`
-                    )}
-                    target="_blank"
-                    rel="noopener"
-                    className="guide-btn"
-                  >
-                    Get it free →
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 12 — GLOSSARY */}
-      <section className="section tint" id="glossary">
-        <div className="container">
-          <div className="sign"><span className="sign-num">12</span>Speak Dubai property</div>
-          <h2>The jargon, <span className="italic-mark">in plain English.</span></h2>
-          <p className="section-lead">
-            Every term an agent will throw at you, in one line of plain English.
-            Tap any card to read it.
-          </p>
-          <div className="glossary-grid">
-            {glossary.map((t) => (
-              <details className="gloss-card" key={t.term}>
-                <summary>
-                  <span className="gloss-term">{t.term}</span>
-                  <span className="gloss-cat">{t.cat}</span>
-                </summary>
-                <p>{t.def}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 13 — FAQ */}
-      <section className="section" id="faq">
-        <div className="container">
-          <div className="sign"><span className="sign-num">13</span>Questions buyers actually ask</div>
-          <h2>Straight answers, <span className="italic-mark">no sales talk.</span></h2>
-          <div className="faq-list">
-            {faqs.map(([q, a], i) => (
-              <details key={i}>
-                <summary>{q}</summary>
-                <p>{a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 14 — CONTACT */}
+      {/* 06 — CONTACT */}
       <section className="section cta-section" id="contact">
         <div className="container">
           <div className="cta-card">
             <div className="cta-copy">
-              <div className="sign sign-light"><span className="sign-num">14</span>Free project check</div>
+              <div className="sign sign-light"><span className="sign-num">06</span>Free project check</div>
               <h2 className="light">
                 Send us the project.
                 <br />
@@ -492,36 +329,42 @@ export default function Home() {
               </ul>
               <div className="contact-direct">
                 <a href={waLink()} target="_blank" rel="noopener">
-                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3.5 21l2.2-5A8.4 8.4 0 1 1 21 11.5Z" />
+                  <svg className="contact-ic" viewBox="0 0 28 28" aria-hidden="true">
+                    <rect x="1.3" y="1.3" width="25.4" height="25.4" rx="7" fill="#F7C21C" stroke="#14110A" strokeWidth="2.3" />
+                    <path d="M14 6.4a7 7 0 0 0-6 10.7L6.7 21.2l4.2-1.1A7 7 0 1 0 14 6.4Z" fill="#fff" stroke="#14110A" strokeWidth="2" strokeLinejoin="round" />
+                    <path d="M11.7 10.9c-.3 0-.6.3-.5.6.3 2.1 1.9 3.7 4 4 .3 0 .6-.2.6-.5v-.9c0-.2-.1-.4-.3-.4l-1.1-.2c-.2 0-.4 0-.5.2l-.4.4a4.4 4.4 0 0 1-1.6-1.6l.4-.4c.1-.1.2-.3.1-.5l-.2-1.1c0-.2-.2-.3-.4-.3h-.1Z" fill="#14110A" />
                   </svg>
                   WhatsApp {site.phone}
                 </a>
                 <a href={`tel:${site.phoneTel}`}>
-                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M6.5 3.5 9 4l1 3.5-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 3.5 1 .5 2.5a2 2 0 0 1-2 2.2A16 16 0 0 1 4.3 5.5a2 2 0 0 1 2.2-2Z" />
+                  <svg className="contact-ic" viewBox="0 0 28 28" aria-hidden="true">
+                    <rect x="1.3" y="1.3" width="25.4" height="25.4" rx="7" fill="#F7C21C" stroke="#14110A" strokeWidth="2.3" />
+                    <path d="M9.6 8.2c-1 0-1.9.8-1.8 1.9C8.3 16 12 19.7 17.9 20.2c1.1.1 1.9-.8 1.9-1.8v-1.9c0-.5-.4-.9-.9-1l-2.7-.6c-.5-.1-.9 0-1.2.4l-.8 1a9.8 9.8 0 0 1-3.8-3.8l1-.8c.4-.3.5-.8.4-1.2l-.6-2.7c-.1-.5-.5-.9-1-.9H9.6Z" fill="#14110A" />
                   </svg>
                   Call {site.phone}
                 </a>
                 <a href={`mailto:${site.email}`}>
-                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="3" y="5" width="18" height="14" rx="2.5" />
-                    <path d="m4 7 8 5.5L20 7" />
+                  <svg className="contact-ic" viewBox="0 0 28 28" aria-hidden="true">
+                    <rect x="1.3" y="1.3" width="25.4" height="25.4" rx="7" fill="#F7C21C" stroke="#14110A" strokeWidth="2.3" />
+                    <rect x="6.5" y="9" width="15" height="11" rx="2.5" fill="#fff" stroke="#14110A" strokeWidth="2" />
+                    <path d="M7.5 10.6 14 15l6.5-4.4" fill="none" stroke="#14110A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   {site.email}
                 </a>
                 <a href={site.mapUrl} target="_blank" rel="noopener">
-                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z" />
-                    <circle cx="12" cy="10" r="2.4" />
+                  <svg className="contact-ic" viewBox="0 0 28 28" aria-hidden="true">
+                    <rect x="1.3" y="1.3" width="25.4" height="25.4" rx="7" fill="#F7C21C" stroke="#14110A" strokeWidth="2.3" />
+                    <path d="M14 6.4c-3.3 0-6 2.6-6 5.9 0 4.2 6 9.3 6 9.3s6-5.1 6-9.3c0-3.3-2.7-5.9-6-5.9Z" fill="#E8553A" stroke="#14110A" strokeWidth="2" strokeLinejoin="round" />
+                    <circle cx="14" cy="12.3" r="2.3" fill="#fff" stroke="#14110A" strokeWidth="1.6" />
                   </svg>
                   {site.office}
                 </a>
                 <a href={site.instagram} target="_blank" rel="noopener">
-                  <svg className="contact-ic" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
-                    <circle cx="12" cy="12" r="4" />
-                    <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none" />
+                  <svg className="contact-ic" viewBox="0 0 28 28" aria-hidden="true">
+                    <rect x="1.3" y="1.3" width="25.4" height="25.4" rx="7" fill="#F7C21C" stroke="#14110A" strokeWidth="2.3" />
+                    <rect x="7" y="7" width="14" height="14" rx="4.5" fill="#fff" stroke="#14110A" strokeWidth="2" />
+                    <circle cx="14" cy="14" r="3.4" fill="none" stroke="#14110A" strokeWidth="2" />
+                    <circle cx="18.2" cy="9.8" r="1.2" fill="#14110A" />
                   </svg>
                   {site.instagramHandle}
                 </a>
@@ -551,8 +394,8 @@ export default function Home() {
               <a href="#cost">Cost calculator</a>
               <a href="#safety">Safety check</a>
               <a href="#yield">Yield calculator</a>
-              <a href="#glossary">Glossary</a>
-              <a href="#faq">FAQ</a>
+              <a href="#visa">Golden Visa</a>
+              <a href="#contact">Contact</a>
             </nav>
             <nav className="footer-links">
               <a href={waLink()} target="_blank" rel="noopener">WhatsApp {site.phone}</a>

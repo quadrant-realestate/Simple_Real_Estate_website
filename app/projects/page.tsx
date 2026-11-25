@@ -10,7 +10,30 @@ export const metadata: Metadata = {
     "Every Dubai off-plan project on our shortlist — real developers, honest starting prices and handover dates. No hype, just the numbers.",
 };
 
-export default function ProjectsPage() {
+const toNum = (s: string) => Number(s.replace(/[^0-9]/g, "")) || 0;
+
+export default async function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
+  const get = (k: string) => (Array.isArray(sp[k]) ? sp[k]?.[0] : sp[k]) || "";
+  const q = get("q").toLowerCase().trim();
+  const area = get("area");
+  const beds = get("beds");
+  const max = toNum(get("max"));
+
+  const filtered = projects.filter((p) => {
+    if (q && !`${p.name} ${p.developer} ${p.area}`.toLowerCase().includes(q)) return false;
+    if (area && p.area !== area) return false;
+    if (beds && !p.beds.toLowerCase().includes(beds.toLowerCase())) return false;
+    if (max && toNum(p.priceFrom) > max) return false;
+    return true;
+  });
+
+  const hasQuery = Boolean(q || area || beds || max);
+
   return (
     <>
       <Nav />
@@ -27,17 +50,35 @@ export default function ProjectsPage() {
             starting prices, real handover dates. Tap any one and we&apos;ll send
             you the full numbers and payment plan.
           </p>
+          {hasQuery && (
+            <p className="projects-result">
+              <strong>{filtered.length}</strong> of {projects.length} projects match
+              {q && <> “{q}”</>}
+              {area && <> · {area}</>}
+              {beds && <> · {beds} bed</>}
+              {max > 0 && <> · under AED {max.toLocaleString("en-US")}</>}
+              <a href="/projects" className="projects-clear">clear ✕</a>
+            </p>
+          )}
         </div>
       </section>
 
       {/* ALL PROJECTS */}
       <section className="section" id="projects">
         <div className="container">
-          <div className="projects-grid">
-            {projects.map((p) => (
-              <ProjectCard p={p} key={p.name} />
-            ))}
-          </div>
+          {filtered.length > 0 ? (
+            <div className="projects-grid">
+              {filtered.map((p) => (
+                <ProjectCard p={p} key={p.name} />
+              ))}
+            </div>
+          ) : (
+            <div className="projects-empty">
+              <h4>No projects match that search.</h4>
+              <p>Try a different area or budget — or ask us and we&apos;ll hand-pick a shortlist for you.</p>
+              <a href="/projects" className="btn btn-ghost">Show all projects</a>
+            </div>
+          )}
           <p className="projects-note">
             Prices and handover dates are indicative and set by the developer.
             We confirm the current figures with you before anything is signed.
